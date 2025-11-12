@@ -1,7 +1,7 @@
 # =============================================================================
 # MAIN ANALYSIS SCRIPT
 # =============================================================================
-
+setwd("C:/Users/ashwin/Downloads/LandLivestock_Agricultural Households/New_Script/")
 # Source all modules
 source("01_setup.r")
 source("02_Data_Loading.r")
