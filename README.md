@@ -1,17 +1,17 @@
 # NSS 77th Round Analysis: Agricultural Households in India
 
-## 📊 Project Overview
+## Project Overview
 
 This project analyzes data from the National Sample Survey (NSS) 77th Round (2019) focusing on agricultural households in India. The analysis examines determinants of household welfare, with particular emphasis on land ownership, education, social factors, and access to technical advice.
 
-## 🎯 Research Objectives
+## Research Objectives
 
 - Identify key determinants of household consumption expenditure (MPCE) among agricultural households
 - Analyze the relationship between land ownership patterns and economic welfare
 - Examine the impact of education, social groups, and technical advice on household economic status
 - Provide policy-relevant insights for agricultural development programs
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 LandLivestock_Agricultural Households/
@@ -28,7 +28,7 @@ LandLivestock_Agricultural Households/
 └── mpce_by_social_group.png       # Visualization: MPCE by social group
 ```
 
-## 🛠️ Technical Implementation
+## Technical Implementation
 
 ### Data Sources
 - **NSS 77th Round** (2019): Land and Livestock Survey
@@ -82,7 +82,7 @@ LandLivestock_Agricultural Households/
 - Land coefficient becomes positive (though insignificant)
 - Stronger social group effects observed
 
-## 🎨 Visualizations
+## Visualizations
 
 The analysis generates three key visualizations:
 
@@ -90,14 +90,14 @@ The analysis generates three key visualizations:
 2. **MPCE by Education**: Demonstrates the education gradient in economic welfare
 3. **MPCE by Social Group**: Highlights social disparities in consumption expenditure
 
-## 💡 Policy Implications
+## Policy Implications
 
 1. **Education Investment**: Strong returns to education suggest need for continued investment in rural education
 2. **Social Inclusion**: Persistent disparities call for targeted interventions for ST/SC households
 3. **Technical Advice**: Current extension services may need redesign for greater impact
 4. **Land Reforms**: Complex land-welfare relationship warrants further investigation
 
-## 🚀 How to Run the Analysis
+## How to Run the Analysis
 
 ### Prerequisites
 ```r
@@ -122,21 +122,21 @@ source("05_visualisation.r")
 - NSS 77th Round data files in specified directory structure
 - Required variables as defined in configuration section
 
-## 📊 Sample Characteristics
+## Sample Characteristics
 
 - **Total households**: 20,180
 - **Land ownership**: 19,696 households own land
 - **Technical advice**: Coverage data for 18,773 households
 - **Geographic coverage**: Nationally representative sample
 
-## 🔍 Limitations
+## Limitations
 
 1. **Cross-sectional data**: Cannot establish causality
 2. **Land measurement**: Complex relationship with welfare requires deeper analysis
 3. **Technical advice**: Binary measure may not capture quality or relevance
 4. **Consumption measure**: MPCE as proxy for welfare has limitations
 
-## 📚 Future Research Directions
+## Future Research Directions
 
 1. **Panel analysis** with follow-up surveys
 2. **Quality of technical advice** beyond binary access
@@ -144,16 +144,14 @@ source("05_visualisation.r")
 4. **Regional heterogeneity** analysis
 5. **Livestock and other income sources** integration
 
-## 👥 Contributors
+## Contributors
 
 - Analysis conducted using NSS 77th Round data
 - Methodology based on standard survey analysis practices
 
-## 📄 License
+## License
 
 This project is for academic/research purposes. NSS data subject to MoSPI terms of use.
 
 ---
 
-*Last Updated: December 2023*  
-*Data Source: National Sample Survey Office, 77th Round*
