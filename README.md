@@ -2,31 +2,16 @@
 
 ## Project Overview
 
-This project analyzes data from the National Sample Survey (NSS) 77th Round (2019) focusing on agricultural households in India. The analysis examines determinants of household welfare, with particular emphasis on land ownership, education, social factors, and access to technical advice.
+This project analyzes data from the National Sample Survey (NSS) 77th Round (2019) focusing on agricultural households in India. The analysis examines determinants of household welfare using both basic and enhanced econometric techniques, with particular emphasis on land ownership, education, social factors, and access to technical advice.
 
 ## Research Objectives
 
 - Identify key determinants of household consumption expenditure (MPCE) among agricultural households
 - Analyze the relationship between land ownership patterns and economic welfare
 - Examine the impact of education, social groups, and technical advice on household economic status
+- Conduct advanced diagnostic tests and robustness checks using enhanced analytical methods
 - Provide policy-relevant insights for agricultural development programs
 
-## Project Structure
-
-```
-LandLivestock_Agricultural Households/
-├── main.r                          # Main analysis script
-├── 01_setup.r                      # Configuration and setup
-├── 02_Data_Loading.r              # Data loading functions
-├── 03_data_processing.r           # Data cleaning and processing
-├── 04_Analysis.r                  # Statistical analysis functions
-├── 05_visualisation.r             # Visualization functions
-├── agricultural_household_analysis.csv  # Final processed dataset
-├── nss77_models.rds               # Saved regression models
-├── mpce_by_land_size.png          # Visualization: MPCE by land size
-├── mpce_by_education.png          # Visualization: MPCE by education
-└── mpce_by_social_group.png       # Visualization: MPCE by social group
-```
 
 ## Technical Implementation
 
@@ -40,6 +25,7 @@ LandLivestock_Agricultural Households/
 | Variable | Description | Type |
 |----------|-------------|------|
 | `mpce_per_capita` | Monthly Per Capita Expenditure (Rupees) | Continuous |
+| `log_mpce` | Log-transformed MPCE | Continuous |
 | `total_land` | Total land owned (acres) | Continuous |
 | `land_size_cat` | Land size categories | Categorical |
 | `educ_level` | Education level of household head | Categorical |
@@ -51,16 +37,24 @@ LandLivestock_Agricultural Households/
 
 ### Methodology
 
+#### Basic Analysis
 1. **Data Integration**: Merged multiple survey modules using household identifiers
 2. **Variable Transformation**: Created meaningful categories and log transformations
 3. **Regression Analysis**: 
-   - OLS models with robust standard errors
+   - OLS models with three specifications
    - Survey-weighted models accounting for complex survey design
 4. **Visualization**: Comparative boxplots for key relationships
 
+#### Enhanced Analysis
+1. **Model Diagnostics**: Variance Inflation Factors (VIF), Breusch-Pagan test, Shapiro-Wilk test, Cook's Distance
+2. **Robust Inference**: HC3 heteroskedasticity-consistent standard errors
+3. **Advanced Methods**: Quantile regression, interaction effects, subgroup analysis
+4. **Sensitivity Analysis**: Alternative specifications and outlier exclusion
+5. **Enhanced Visualization**: Coefficient plots with confidence intervals, smoothed relationships
+
 ## 📈 Key Findings
 
-### Regression Results Summary
+### Basic Regression Results Summary
 
 #### Model 1: Basic Determinants
 - **Education**: Strong positive effect (Graduate+ → +33% MPCE)
@@ -77,81 +71,79 @@ LandLivestock_Agricultural Households/
 - **Gender**: No significant difference
 - **R-squared**: 20.8% (improved from 18.4%)
 
-### Survey-Weighted Analysis
+### Enhanced Analysis Findings
+
+#### Model Diagnostics
+- **Moderate multicollinearity** detected (VIF > 5 for some variables)
+- **Significant heteroskedasticity** present (Breusch-Pagan p < 0.001)
+- **Non-normal residuals** (Shapiro-Wilk p < 0.001)
+- **5.24% influential observations** (Cook's Distance > threshold)
+
+#### Robust Standard Errors Results
+- **Graduate education**: +36% MPCE (p < 0.001)
+- **Technical advice**: -1.2% effect (p = 0.051) - borderline significant
+- **Land ownership**: -0.1% per acre (p < 0.001)
+- **Household size**: -6.9% per additional member (p < 0.001)
+- **Standard errors increased** by 1-17% compared to OLS
+
+#### Survey-Weighted Analysis
 - Larger standard errors due to complex survey design
 - Land coefficient becomes positive (though insignificant)
 - Stronger social group effects observed
 
 ## Visualizations
 
-The analysis generates three key visualizations:
+### Basic Visualizations
+1. **MPCE by Land Size**: Expenditure distribution across land ownership categories
+2. **MPCE by Education**: Education gradient in economic welfare
+3. **MPCE by Social Group**: Social disparities in consumption expenditure
 
-1. **MPCE by Land Size**: Shows expenditure distribution across land ownership categories
-2. **MPCE by Education**: Demonstrates the education gradient in economic welfare
-3. **MPCE by Social Group**: Highlights social disparities in consumption expenditure
+### Enhanced Visualizations
+1. **Enhanced Coefficient Plot**: Regression coefficients with 95% confidence intervals
+2. **Enhanced MPCE by Education**: Detailed distribution analysis
+3. **Land-MPCE Relationship by Social Group**: Smoothed relationships with confidence bands
 
 ## Policy Implications
 
-1. **Education Investment**: Strong returns to education suggest need for continued investment in rural education
+1. **Education Investment**: Strong returns to education (36% higher MPCE for graduates) suggest need for continued investment in rural education
 2. **Social Inclusion**: Persistent disparities call for targeted interventions for ST/SC households
-3. **Technical Advice**: Current extension services may need redesign for greater impact
-4. **Land Reforms**: Complex land-welfare relationship warrants further investigation
+3. **Technical Advice**: Current extension services show limited impact (-1.2%, borderline significant), may need redesign for greater effectiveness
+4. **Land Reforms**: Complex land-welfare relationship (small negative effect) warrants further investigation into land quality and productivity
+5. **Robustness Concerns**: Heteroskedasticity and influential observations suggest need for careful interpretation and potential model refinements
 
 ## How to Run the Analysis
 
 ### Prerequisites
 ```r
 # Required R packages
-install.packages(c("tidyverse", "haven", "survey", "lmtest", "sandwich", "car"))
+install.packages(c("tidyverse", "haven", "survey", "lmtest", "sandwich", "car", "broom", "quantreg"))
 ```
 
-### Execution
-```r
-# Run complete analysis
-source("main.r")
+## Data Requirements
 
-# Or run step by step
-source("01_setup.r")
-source("02_Data_Loading.r") 
-source("03_data_processing.r")
-source("04_Analysis.r")
-source("05_visualisation.r")
-```
+    NSS 77th Round data files in specified directory structure
 
-### Data Requirements
-- NSS 77th Round data files in specified directory structure
-- Required variables as defined in configuration section
+    Required variables as defined in configuration section
 
 ## Sample Characteristics
 
-- **Total households**: 20,180
-- **Land ownership**: 19,696 households own land
-- **Technical advice**: Coverage data for 18,773 households
-- **Geographic coverage**: Nationally representative sample
+    Total households: 20,180
 
-## Limitations
+    Land ownership: 19,696 households own land
 
-1. **Cross-sectional data**: Cannot establish causality
-2. **Land measurement**: Complex relationship with welfare requires deeper analysis
-3. **Technical advice**: Binary measure may not capture quality or relevance
-4. **Consumption measure**: MPCE as proxy for welfare has limitations
+    Technical advice: Coverage data for 18,773 households
 
-## Future Research Directions
+    Geographic coverage: Nationally representative sample
 
-1. **Panel analysis** with follow-up surveys
-2. **Quality of technical advice** beyond binary access
-3. **Land productivity** measures rather than just area
-4. **Regional heterogeneity** analysis
-5. **Livestock and other income sources** integration
+## Enhanced Analysis Contributions
 
-## Contributors
+The enhanced analysis provides:
 
-- Analysis conducted using NSS 77th Round data
-- Methodology based on standard survey analysis practices
+    Diagnostic validation of model assumptions
 
-## License
+    Robust inference through heteroskedasticity-consistent standard errors
 
-This project is for academic/research purposes. NSS data subject to MoSPI terms of use.
+    Distributional insights through quantile regression
 
----
+    Robustness checks through sensitivity analysis
 
